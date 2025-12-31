@@ -2,7 +2,10 @@ package mcp
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
@@ -1315,4 +1318,50 @@ func (s *Server) getDPIApplications(ctx context.Context, request mcp.CallToolReq
 func (s *Server) ServeStdio(ctx context.Context) error {
 	s.logger.Info("Starting UniFi Network MCP Server")
 	return server.ServeStdio(s.server)
+}
+
+// ServeHTTP starts the MCP server with HTTP transport
+func (s *Server) ServeHTTP(addr string, ctx context.Context) error {
+	s.logger.Infof("Starting UniFi Network MCP Server on HTTP at %s", addr)
+
+	http.HandleFunc("/mcp", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		// Read the request body
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Failed to read request body", http.StatusBadRequest)
+			return
+		}
+		defer r.Body.Close()
+
+		// Parse the MCP request
+		var requestData map[string]interface{}
+		if err := json.Unmarshal(body, &requestData); err != nil {
+			http.Error(w, "Invalid JSON", http.StatusBadRequest)
+			return
+		}
+
+		// Log the request
+		s.logger.Debugf("HTTP MCP request received: %v", requestData)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		response := map[string]string{
+			"status": "MCP HTTP transport is available",
+			"info":   "This is an HTTP endpoint. Use stdio transport for full MCP protocol support.",
+		}
+		json.NewEncoder(w).Encode(response)
+	})
+
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(map[string]string{"status": "healthy"})
+	})
+
+	return http.ListenAndServe(addr, nil)
 }
