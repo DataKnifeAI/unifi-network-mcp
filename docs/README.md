@@ -1,6 +1,8 @@
-# UniFi MCP Server Documentation
+# UniFi Network MCP Server Documentation
 
-Complete documentation for the UniFi Model Context Protocol (MCP) Server.
+Complete documentation for the UniFi Network Model Context Protocol (MCP) Server.
+
+This server provides management and monitoring capabilities for UniFi Network systems (sites, devices, WiFi networks, clients, firewalls, and traffic management).
 
 ## Documentation Index
 
@@ -181,7 +183,7 @@ LOG_LEVEL=debug go run cmd/main.go
 
 ### Build Binary
 ```bash
-go build -o unifi-mcp cmd/main.go
+go build -o unifi-network-mcp cmd/main.go
 ```
 
 ### Run Tests
@@ -191,8 +193,8 @@ go test ./...
 
 ### Docker
 ```bash
-docker build -t unifi-mcp .
-docker run -e UNIFI_API_KEY=key -e UNIFI_BASE_URL=url unifi-mcp
+docker build -t unifi-network-mcp .
+docker run -e UNIFI_API_KEY=key -e UNIFI_BASE_URL=url unifi-network-mcp
 ```
 
 ---

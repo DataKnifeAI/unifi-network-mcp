@@ -49,3 +49,4 @@ htmlcov/
 tmp/
 temp/
 *.tmp
+bin/unifi-network-mcp

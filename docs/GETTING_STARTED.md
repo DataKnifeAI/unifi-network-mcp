@@ -1,12 +1,12 @@
-# UniFi MCP Server - Getting Started
+# UniFi Network MCP Server - Getting Started
 
-Complete guide to set up and start using UniFi MCP Server.
+Complete guide to set up and start using the UniFi Network MCP Server for network management and device monitoring.
 
 ## Quick Start (5 Minutes)
 
 ### Prerequisites
 - Go 1.21+ installed
-- UniFi Controller 8.0+ running
+- UniFi Network Controller 8.0+ running
 - API Key (generated below)
 
 ### 1. Get API Key (1 minute)
@@ -17,7 +17,7 @@ Complete guide to set up and start using UniFi MCP Server.
 
 ### 2. Configure (1 minute)
 ```bash
-cd unifi-mcp
+cd unifi-network-mcp
 cat > .env << EOF
 UNIFI_API_KEY=your-api-key-here
 UNIFI_BASE_URL=https://192.168.1.1
@@ -32,47 +32,47 @@ go run cmd/main.go
 
 Expected output:
 ```
-INFO[...] Initializing Unifi MCP Server
-INFO[...] Registered 26 MCP tools
-INFO[...] Starting Unifi MCP Server on stdio transport
+INFO[...] Initializing UniFi Network MCP Server
+INFO[...] Registered 18 MCP tools
+INFO[...] Starting UniFi Network MCP Server on stdio transport
 ```
 
 ### 4. Verify (2 minutes)
 ```bash
-# Test API key in another terminal
+# Test API key in another terminal - check network sites
 curl -H "X-API-KEY: your-api-key" \
-  https://192.168.1.1/proxy/network/api/self/sites
+  https://192.168.1.1/proxy/network/integration/v1/sites
 ```
 
 ## Complete Setup Guide
 
 ### System Requirements
 - **Go 1.21+** - For building
-- **UniFi Controller 8.0+** - Newer versions recommended
+- **UniFi Network Controller 8.0+** - Required for network management features
 - **Network Access** - Controller must be accessible
 
 ### Installation Options
 
 #### Option 1: Build from Source
 ```bash
-cd unifi-mcp
+cd unifi-network-mcp
 go mod download
-go build -o bin/unifi-mcp cmd/main.go
-./bin/unifi-mcp
+go build -o bin/unifi-network-mcp cmd/main.go
+./bin/unifi-network-mcp
 ```
 
 #### Option 2: Run Directly
 ```bash
-cd unifi-mcp
+cd unifi-network-mcp
 go run cmd/main.go
 ```
 
 #### Option 3: Docker
 ```bash
-docker build -t unifi-mcp .
+docker build -t unifi-network-mcp .
 docker run -e UNIFI_API_KEY=your-key \
            -e UNIFI_BASE_URL=https://192.168.1.1 \
-           unifi-mcp
+           unifi-network-mcp
 ```
 
 ### Configuration
@@ -161,9 +161,9 @@ Via MCP client:
    - Add new server with settings:
      ```json
      {
-       "name": "unifi-mcp",
+       "name": "unifi-network-mcp",
        "command": "go",
-       "args": ["run", "/path/to/unifi-mcp/cmd/main.go"],
+       "args": ["run", "/path/to/unifi-network-mcp/cmd/main.go"],
        "env": {
          "UNIFI_API_KEY": "your-key",
          "UNIFI_BASE_URL": "https://192.168.1.1"
@@ -183,7 +183,7 @@ Via MCP client:
 ```yaml
 version: '3.8'
 services:
-  unifi-mcp:
+  unifi-network-mcp:
     build: .
     environment:
       UNIFI_API_KEY: ${UNIFI_API_KEY}
@@ -222,7 +222,7 @@ UNIFI_SKIP_SSL_VERIFY=true go run cmd/main.go
 ```
 
 ### "No Tools Found" in Claude
-1. Verify server is running: `ps aux | grep unifi-mcp`
+1. Verify server is running: `ps aux | grep unifi-network-mcp`
 2. Check MCP configuration path and environment variables
 3. Check server logs: `LOG_LEVEL=debug go run cmd/main.go`
 4. Restart Claude completely (quit, don't just close)

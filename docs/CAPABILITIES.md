@@ -1,17 +1,21 @@
-# UniFi MCP Server - Capabilities & Skills
+# UniFi Network MCP Server - Capabilities & Skills
 
-Complete reference for all 51 available UniFi MCP tools and their capabilities.
+Complete reference for all UniFi Network MCP tools and their capabilities.
 
 ## Overview
 
-The UniFi MCP Server provides access to two major UniFi systems:
-1. **UniFi Protect** - Camera and surveillance system (14 tools: 6 GET, 4 PATCH, 4 POST)
-2. **UniFi Network** - Network management system (37 tools: 20 GET, 7 PATCH, 10 POST)
+The UniFi Network MCP Server provides access to UniFi Network management capabilities:
+- **Site Management** - View and manage network sites
+- **Device Management** - Monitor switches, APs, gateways, and other devices
+- **Client Management** - Track connected devices and statistics
+- **WiFi Management** - Configure and monitor WiFi networks
+- **Firewall & Security** - Manage firewall zones, ACLs, and traffic rules
+- **System Information** - Monitor network health and statistics
 
-**Total available tools: 51 ✅**
-- **GET Tools**: 26 (data retrieval)
-- **PATCH Tools**: 11 (resource updates)
-- **POST Tools**: 14 (resource creation)
+**Total available tools: 18**
+- **GET Tools**: 13 (data retrieval and monitoring)
+- **PATCH Tools**: 3 (resource updates)
+- **POST Tools**: 2 (resource creation)
 
 ---
 

@@ -1,10 +1,10 @@
 # VS Code & Chat Tool Integration Guide
 
-This guide shows how to connect the Unifi MCP Server to VS Code, Claude, ChatGPT, and other tools.
+This guide shows how to connect the Unifi Network MCP Server to VS Code, Claude, ChatGPT, and other tools.
 
 ## Overview
 
-The Unifi MCP Server uses the Model Context Protocol (MCP) to expose 28 tools for managing Unifi infrastructure. Once configured, you can use these tools through:
+The Unifi Network MCP Server uses the Model Context Protocol (MCP) to expose 18 tools for managing Unifi network infrastructure. Once configured, you can use these tools through:
 
 - **VS Code with Copilot** - Direct integration via MCP server configuration
 - **Claude (Claude.ai & API)** - Via Codebase Context or direct MCP server setup
@@ -26,8 +26,8 @@ Before connecting to any tool, ensure the server is running:
 
 ```bash
 # Clone and setup
-git clone https://github.com/yourusername/unifi-mcp.git
-cd unifi-mcp
+git clone https://github.com/yourusername/unifi-network-mcp.git
+cd unifi-network-mcp
 
 # Configure
 cp .env.example .env
@@ -36,10 +36,10 @@ cp .env.example .env
 # UNIFI_BASE_URL=https://your-controller:443
 
 # Build
-go build -o bin/unifi-mcp ./cmd
+go build -o bin/unifi-network-mcp ./cmd
 
 # Run the server
-./bin/unifi-mcp
+./bin/unifi-network-mcp
 ```
 
 The server will start on **stdio transport** (reads from stdin, writes to stdout), which is ideal for tool integrations.
@@ -47,12 +47,12 @@ The server will start on **stdio transport** (reads from stdin, writes to stdout
 ### Docker Alternative
 
 ```bash
-docker build -t unifi-mcp:latest .
+docker build -t unifi-network-mcp:latest .
 
 docker run -it \
   -e UNIFI_API_KEY="your-api-key" \
   -e UNIFI_BASE_URL="https://your-controller:443" \
-  unifi-mcp:latest
+  unifi-network-mcp:latest
 ```
 
 ---
@@ -73,8 +73,8 @@ Create or edit `.vscode/settings.json` in your workspace:
 ```json
 {
   "claude.mcpServers": {
-    "unifi-mcp": {
-      "command": "/home/lee/git/unifi-mcp/bin/unifi-mcp",
+    "unifi-network-mcp": {
+      "command": "/home/lee/git/unifi-network-mcp/bin/unifi-network-mcp",
       "args": [],
       "env": {
         "UNIFI_API_KEY": "your-api-key-here",
@@ -91,8 +91,8 @@ Or for global VS Code settings (`~/.config/Code/User/settings.json` on Linux):
 ```json
 {
   "claude.mcpServers": {
-    "unifi-mcp": {
-      "command": "/absolute/path/to/unifi-mcp/bin/unifi-mcp",
+    "unifi-network-mcp": {
+      "command": "/absolute/path/to/unifi-network-mcp/bin/unifi-network-mcp",
       "env": {
         "UNIFI_API_KEY": "your-api-key",
         "UNIFI_BASE_URL": "https://your-controller:443"
@@ -148,7 +148,7 @@ import json
 
 # Start the MCP server as a subprocess
 server = subprocess.Popen(
-    ["/path/to/unifi-mcp/bin/unifi-mcp"],
+    ["/path/to/unifi-network-mcp/bin/unifi-network-mcp"],
     stdin=subprocess.PIPE,
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE,
@@ -168,10 +168,10 @@ response = client.messages.create(
     tools=[
         {
             "type": "mcp",
-            "name": "unifi-mcp",
-            "description": "Unifi Network and Protect management tools",
+            "name": "unifi-network-mcp",
+            "description": "Unifi Network management tools",
             "server": {
-                "command": "/path/to/unifi-mcp/bin/unifi-mcp",
+                "command": "/path/to/unifi-network-mcp/bin/unifi-network-mcp",
                 "env": {
                     "UNIFI_API_KEY": "your-api-key",
                     "UNIFI_BASE_URL": "https://your-controller:443"
@@ -316,7 +316,7 @@ Deploy your wrapper to a public URL:
 ollama pull mistral
 
 # Run MCP server in one terminal
-./bin/unifi-mcp
+./bin/unifi-network-mcp
 
 # In another terminal, create a Python script
 cat > ollama-client.py << 'EOF'
@@ -393,10 +393,10 @@ print(result)
 **Problem**: "Server not found" or "Connection refused"
 
 **Solutions**:
-1. Verify server is running: `./bin/unifi-mcp`
+1. Verify server is running: `./bin/unifi-network-mcp`
 2. Check environment variables are set
 3. Verify API key has permissions
-4. Check logs: `LOG_LEVEL=debug ./bin/unifi-mcp`
+4. Check logs: `LOG_LEVEL=debug ./bin/unifi-network-mcp`
 
 ### Tools Not Appearing in Chat
 

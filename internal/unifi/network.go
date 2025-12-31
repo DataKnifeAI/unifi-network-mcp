@@ -170,7 +170,7 @@ func (nc *NetworkClient) GetSites(ctx context.Context) ([]NetworkSite, error) {
 func (nc *NetworkClient) GetDevices(ctx context.Context, siteID string) ([]NetworkDevice, error) {
 	nc.logger.WithField("site_id", siteID).Debug("Fetching devices from Unifi Network")
 
-	url := fmt.Sprintf("%s/proxy/network/api/s/%s/stat/device", nc.baseURL, siteID)
+	url := fmt.Sprintf("%s/proxy/network/integration/v1/sites/%s/devices", nc.baseURL, siteID)
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -205,7 +205,7 @@ func (nc *NetworkClient) GetDevices(ctx context.Context, siteID string) ([]Netwo
 func (nc *NetworkClient) GetWiFiNetworks(ctx context.Context, siteID string) ([]NetworkWiFiNetwork, error) {
 	nc.logger.WithField("site_id", siteID).Debug("Fetching WiFi networks from Unifi Network")
 
-	url := fmt.Sprintf("%s/proxy/network/api/s/%s/rest/networkconf", nc.baseURL, siteID)
+	url := fmt.Sprintf("%s/proxy/network/integration/v1/sites/%s/networks", nc.baseURL, siteID)
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
@@ -279,7 +279,7 @@ func (nc *NetworkClient) GetClients(ctx context.Context, siteID string, limit, o
 		"offset":  offset,
 	}).Debug("Fetching clients from Unifi Network")
 
-	url := fmt.Sprintf("%s/proxy/network/api/s/%s/stat/sta", nc.baseURL, siteID)
+	url := fmt.Sprintf("%s/proxy/network/integration/v1/sites/%s/clients", nc.baseURL, siteID)
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)

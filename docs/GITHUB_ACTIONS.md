@@ -53,7 +53,7 @@ make test
 
 ### Building Docker Image Locally
 ```bash
-docker build -t unifi-mcp:latest .
+docker build -t unifi-network-mcp:latest .
 ```
 
 ### Creating a Release

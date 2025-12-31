@@ -9,13 +9,13 @@ This guide explains how to use the UniFi MCP Server with GitHub Copilot and othe
 First, ensure the UniFi MCP Server is running on your system:
 
 ```bash
-# From the unifi-mcp directory
+# From the unifi-network-mcp directory
 go run cmd/main.go
 ```
 
 The server should output:
 ```
-Starting Unifi MCP Server on stdio transport
+Starting Unifi Network MCP Server on stdio transport
 ```
 
 ### 2. Configure Copilot
@@ -25,9 +25,9 @@ Add the following to your Copilot configuration:
 ```json
 {
   "mcp_servers": {
-    "unifi": {
+    "unifi-network": {
       "command": "go",
-      "args": ["run", "/path/to/unifi-mcp/cmd/main.go"],
+      "args": ["run", "/path/to/unifi-network-mcp/cmd/main.go"],
       "env": {
         "UNIFI_API_KEY": "your-api-key",
         "UNIFI_BASE_URL": "https://your-unifi-host.com",
@@ -40,7 +40,7 @@ Add the following to your Copilot configuration:
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the root of the unifi-mcp directory:
+Create a `.env` file in the root of the unifi-network-mcp directory:
 
 ```env
 UNIFI_API_KEY=your-api-key-here
