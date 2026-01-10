@@ -1,5 +1,7 @@
 name: Tests
-true:
+
+on:
+  workflow_dispatch:
   push:
     branches:
     - main
@@ -52,10 +54,8 @@ jobs:
         files: ./coverage.out
     - name: Push to GitLab
       if: success()
-      run: 'git remote add gitlab https://gitlab.com/dk-raas/dkai/unifi-network-mcp.git || true
-
-        git config user.name "GitHub Actions"
+      run: 'git config user.name "GitHub Actions"
 
         git config user.email "actions@github.com"
 
-        git push gitlab HEAD:main --force || echo "GitLab push failed (may need GITLAB_TOKEN secret)"'
+        git push https://oauth2:${GITLAB_TOKEN}@gitlab.com/dk-raas/dkai/unifi-network-mcp.git HEAD:main --force || echo "GitLab push failed (may need GITLAB_TOKEN secret)"'
