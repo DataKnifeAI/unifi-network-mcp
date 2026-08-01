@@ -1,5 +1,8 @@
 # UniFi Network MCP
 
+![UniFi Network MCP server](docs/assets/unifi-network-mcp-hero.jpg)
+
+
 Model Context Protocol (MCP) server for Ubiquiti UniFi Network management. Control and monitor your UniFi network infrastructure through an AI-powered interface.
 
 **Focused on:** WiFi networks, clients, firewall, VPN, DPI, ACL rules, traffic shaping, and hotspot management.
