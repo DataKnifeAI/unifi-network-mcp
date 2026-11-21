@@ -1,0 +1,16 @@
+---
+description: unifi-network-mcp project-specific agent guidance
+alwaysApply: true
+---
+
+# UniFi Network MCP
+
+Go MCP server for UniFi Network Controllers.
+
+Cursor uses `.cursor/rules/` (this file + org common). Copilot instructions under `.github/` remain for other tools.
+
+## Conventions
+
+- Prefer env / `.env.example` for controller URL and API keys
+- Keep tool handlers thin; share client code for UniFi API calls
+- Do not commit live credentials or site-specific secrets
